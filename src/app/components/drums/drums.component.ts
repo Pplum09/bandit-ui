@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ReplaySubject, Subscription } from 'rxjs';
-import { filter } from 'rxjs';
+import { filter } from 'rxjs/operators'
+import { Drum } from './drums.model';
 
 @Component({
   selector: 'app-drums',
@@ -12,13 +13,18 @@ export class DrumsComponent implements OnInit, OnDestroy {
   private input$: ReplaySubject<string>;
   private subscriptions: Subscription;
   private allowableKeys = ['k', ' ', 'd'];
+  private keyToAudioMap = {
+    'd': Drum.Snare,
+    ' ': Drum.Bass,
+    'k': Drum.ClosedHiHat,
+  };
   constructor() {
     this.subscriptions = new Subscription();
     this.input$ = new ReplaySubject();
     const inputSub = this.input$
       .pipe(
-        filter(key => this.allowableKeys.includes),
-      ).subscribe(res => console.log('key press: ', res));
+        filter(key => this.allowableKeys.includes(key)),
+      ).subscribe(key => this.playAudio(key));
     this.subscriptions.add(inputSub);
   }
 
@@ -30,8 +36,16 @@ export class DrumsComponent implements OnInit, OnDestroy {
   }
 
   public onKeyup(evt): void {
-    console.log('press: ', evt.key);
     this.input$.next(evt.key)
+
+
+  }
+
+  private playAudio(key: string): void {
+    const audio = new Audio();
+    audio.src = this.keyToAudioMap[key];
+    audio.load();
+    audio.play();
   }
 
 }
