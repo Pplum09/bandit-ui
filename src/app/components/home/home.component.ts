@@ -9,11 +9,11 @@ import { RoomService } from 'src/app/services/room.service';
 export class HomeComponent implements OnInit {
 
   private userID: string;
-  private roomID: string = '';
+  public roomID: string = '';
 
   constructor(
     private roomService: RoomService,
-  ) { 
+  ) {
 
    this.userID = Math.random().toString(36).replace('0.', '').slice(0, 4).toUpperCase();
   }
