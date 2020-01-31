@@ -1,7 +1,16 @@
-<div>
-  <button (click)="createRoom()">Start a Jam Session!</button>
-</div>
-<div>
-  <input [(ngModel)]="roomID">
-  <button (click)=joinRoom()>Join a Jam!</button>
-</div>
+<form>
+  <div>
+    <input
+      placeholder="name"
+      [formControl]="name">
+  </div>
+  <div>
+    <button (click)="createRoom()">Start a jam session!</button>
+  </div>
+  <div>
+    <input
+      placeholder="room"
+      [formControl]="room">
+    <button (click)=joinRoom()>Join session room!</button>
+  </div>
+</form>

@@ -11,11 +11,11 @@ export class RoomService {
     private socket: Socket,
   ) { }
 
-  public createRoom(): void {
-    this.socket.emit(Room.Create);
+  public createRoom(user: string): void {
+    this.socket.emit(Room.Create, {userID: user});
   }
 
-  public joinRoom(roomID: string, userID: string): void {
-    this.socket.emit(Room.Join, {roomID: roomID, userID: userID});
+  public joinRoom(room: string, user: string): void {
+    this.socket.emit(Room.Join, {roomID: room, userID: user});
   }
 }

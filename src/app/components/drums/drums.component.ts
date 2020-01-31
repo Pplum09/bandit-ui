@@ -12,11 +12,12 @@ export class DrumsComponent implements OnInit, OnDestroy {
 
   private input$: ReplaySubject<string>;
   private subscriptions: Subscription;
-  private allowableKeys = ['k', ' ', 'd'];
+  private allowableKeys = ['k', ' ', 'd', 'r'];
   private keyToAudioMap = {
     'd': Drum.Snare,
     ' ': Drum.Bass,
     'k': Drum.ClosedHiHat,
+    'r': Drum.CrashCymbal,
   };
   constructor() {
     this.subscriptions = new Subscription();

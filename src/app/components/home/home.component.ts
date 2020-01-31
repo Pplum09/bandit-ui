@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RoomService } from 'src/app/services/room.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -8,25 +9,21 @@ import { RoomService } from 'src/app/services/room.service';
 })
 export class HomeComponent implements OnInit {
 
-  private userID: string;
-  public roomID: string = '';
-
+  public room = new FormControl('');
+  public name = new FormControl('');
   constructor(
     private roomService: RoomService,
-  ) {
-
-   this.userID = Math.random().toString(36).replace('0.', '').slice(0, 4).toUpperCase();
-  }
+  ) {}
 
   ngOnInit() {
   }
 
   public createRoom(): void  {
-    this.roomService.createRoom();
+    this.roomService.createRoom(this.name.value);
   }
 
   public joinRoom(): void {
-    console.log(this.roomID);
-    this.roomService.joinRoom(this.roomID, this.userID);
+    console.log(this.room.value);
+    this.roomService.joinRoom(this.room.value, this.name.value);
   }
 }
